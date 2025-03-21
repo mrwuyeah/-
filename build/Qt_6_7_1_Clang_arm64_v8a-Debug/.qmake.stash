@@ -1,0 +1,25 @@
+QMAKE_CXX.QT_COMPILER_STDCXX = 201703L
+QMAKE_CXX.QMAKE_CLANG_MAJOR_VERSION = 17
+QMAKE_CXX.QMAKE_CLANG_MINOR_VERSION = 0
+QMAKE_CXX.QMAKE_CLANG_PATCH_VERSION = 2
+QMAKE_CXX.QMAKE_GCC_MAJOR_VERSION = 4
+QMAKE_CXX.QMAKE_GCC_MINOR_VERSION = 2
+QMAKE_CXX.QMAKE_GCC_PATCH_VERSION = 1
+QMAKE_CXX.COMPILER_MACROS = \
+    QT_COMPILER_STDCXX \
+    QMAKE_CLANG_MAJOR_VERSION \
+    QMAKE_CLANG_MINOR_VERSION \
+    QMAKE_CLANG_PATCH_VERSION \
+    QMAKE_GCC_MAJOR_VERSION \
+    QMAKE_GCC_MINOR_VERSION \
+    QMAKE_GCC_PATCH_VERSION
+QMAKE_CXX.INCDIRS = \
+    E:/QT/sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/include/c++ \
+    E:/QT/sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/17/include \
+    E:/QT/sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/include
+QMAKE_CXX.LIBDIRS = \
+    E:/QT/sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/17 \
+    E:/QT/sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/lib/x86_64-w64-windows-gnu \
+    E:/QT/sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/x86_64-w64-mingw32/lib \
+    E:/QT/sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/x86_64-w64-mingw32/mingw/lib \
+    E:/QT/sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/lib
