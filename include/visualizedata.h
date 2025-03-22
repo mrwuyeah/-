@@ -24,6 +24,7 @@ private:
     // QWidget interface
 protected:
     void keyPressEvent(QKeyEvent *event);
+    void paintEvent(QPaintEvent *event) override;
 };
 
 #endif // VISUALIZEDATA_H

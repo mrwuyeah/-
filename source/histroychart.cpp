@@ -36,7 +36,7 @@
 
 CHistroyChart::CHistroyChart(QWidget *parent) : CAbstractCard(parent)
 {
-    setTitle("实时报警数据");
+    setTitle("实时疲劳状态监测数据");
 
     QVBoxLayout *layoutMain = new QVBoxLayout(getMainWnd());
     layoutMain->setContentsMargins(10, 0, 10, 0);
@@ -46,6 +46,7 @@ CHistroyChart::CHistroyChart(QWidget *parent) : CAbstractCard(parent)
         m_chart = new QChartView(createSplineChart());
         m_chart->setRenderHint(QPainter::Antialiasing);
         m_chart->setAttribute(Qt::WA_TranslucentBackground);
+        setStyleSheet("background: transparent;");
         layoutMain->addWidget(m_chart);
     }
 
@@ -58,7 +59,7 @@ QChart *CHistroyChart::createSplineChart() const
     chart->setMargins(QMargins(0, 0, 0, 0));
     chart->setBackgroundBrush(Qt::transparent);
 //    chart->setAnimationOptions(QChart::SeriesAnimations);
-    chart->setTitle("");
+    chart->setTitle("武汉理工大学");
 
     chart->setTitle("");
     QString name("Series ");
@@ -70,14 +71,14 @@ QChart *CHistroyChart::createSplineChart() const
         QSplineSeries *series = new QSplineSeries(chart);
         for (const Data &data : list)
             series->append(data.first);
-        series->setName(nameIndex == 0 ? "人员报警" : "车辆报警");
+        series->setName(nameIndex == 0 ? "疲劳状态变化" : "二氧化碳含量");
         nameIndex++;
         chart->addSeries(series);
     }
 
     chart->createDefaultAxes();
     chart->axes(Qt::Horizontal).first()->setRange(0, 20);
-    chart->axes(Qt::Vertical).first()->setRange(0, 2000);
+    chart->axes(Qt::Vertical).first()->setRange(0, 100);
 
     // Add space to label to add space between labels and axis
     QValueAxis *axisY = qobject_cast<QValueAxis*>(chart->axes(Qt::Vertical).first());

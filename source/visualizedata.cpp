@@ -6,6 +6,8 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QKeyEvent>
+#include <QPainter>
+#include <QPixmap>
 
 #include "abstractcard.h"
 #include "alarmsummary.h"
@@ -27,12 +29,29 @@ CVisualizeData::CVisualizeData(QWidget *parent)
 
     resize(1200, 800);
     setAttribute(Qt::WA_StyledBackground);
-    setStyleSheet("background-image: url(:/image/res/bg.jpg); background-repeat: no-repeat; background-position: center; background-attachment: fixed;");
+    //setStyleSheet("background-image: url(:/image/res/bg.jpg); background-repeat: no-repeat; background-position: center; background-attachment: fixed;");
     //showFullScreen();
+    // 绘制背景图片
 
     setCursor(QCursor(QPixmap(":/image/res/pointer.png")));
 
     Layout();
+}
+
+void CVisualizeData::paintEvent(QPaintEvent *event)
+{
+    Q_UNUSED(event); // 避免未使用参数的警告
+
+    QPainter painter(this);
+    if (!painter.isActive()) {
+        return; // 确保 QPainter 已激活
+    }
+
+    // 绘制背景图片
+    QPixmap background(":/image/res/bg.jpg");
+    if (!background.isNull()) {
+        painter.drawPixmap(rect(), background.scaled(size(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+    }
 }
 
 CVisualizeData::~CVisualizeData()

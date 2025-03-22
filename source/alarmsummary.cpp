@@ -34,16 +34,16 @@
 
 CAlarmSummary::CAlarmSummary(QWidget *parent) : CAbstractCard(parent)
 {
-    setTitle("报警汇总");
+    setTitle("车内状态汇总");
 
     QVBoxLayout *layoutMain = new QVBoxLayout(getMainWnd());
     layoutMain->setContentsMargins(10, 0, 10, 0);
     layoutMain->setSpacing(10);
 
     {
-        QLabel *label1 = new QLabel("1288", this);
-        QLabel *label2 = new QLabel("1012", this);
-        QLabel *label3 = new QLabel("10%", this);
+        QLabel *label1 = new QLabel("29℃", this);
+        QLabel *label2 = new QLabel("70%", this);
+        QLabel *label3 = new QLabel("50%", this);
 
         label1->setAlignment(Qt::AlignCenter);
         label2->setAlignment(Qt::AlignCenter);
@@ -65,9 +65,9 @@ CAlarmSummary::CAlarmSummary(QWidget *parent) : CAbstractCard(parent)
     }
 
     {
-        QLabel *label1 = new QLabel("本月报警数量", this);
-        QLabel *label2 = new QLabel("上月报警数量", this);
-        QLabel *label3 = new QLabel("环比增长", this);
+        QLabel *label1 = new QLabel("温度", this);
+        QLabel *label2 = new QLabel("湿度", this);
+        QLabel *label3 = new QLabel("光照强度", this);
 
         label1->setAlignment(Qt::AlignCenter);
         label2->setAlignment(Qt::AlignCenter);
@@ -88,9 +88,9 @@ CAlarmSummary::CAlarmSummary(QWidget *parent) : CAbstractCard(parent)
     layoutMain->addWidget(CreateSeparator(false, this));
 
     {
-        QLabel *label1 = new QLabel("1288", this);
-        QLabel *label2 = new QLabel("1012", this);
-        QLabel *label3 = new QLabel("10%", this);
+        QLabel *label1 = new QLabel("0 mg/L", this);
+        QLabel *label2 = new QLabel("1h30min", this);
+        QLabel *label3 = new QLabel("正常", this);
 
         label1->setAlignment(Qt::AlignCenter);
         label2->setAlignment(Qt::AlignCenter);
@@ -112,9 +112,9 @@ CAlarmSummary::CAlarmSummary(QWidget *parent) : CAbstractCard(parent)
     }
 
     {
-        QLabel *label1 = new QLabel("本月报警数量", this);
-        QLabel *label2 = new QLabel("上月报警数量", this);
-        QLabel *label3 = new QLabel("环比增长", this);
+        QLabel *label1 = new QLabel("空气酒精含量", this);
+        QLabel *label2 = new QLabel("持续驾驶时长", this);
+        QLabel *label3 = new QLabel("驾驶者驾驶状态", this);
 
         label1->setAlignment(Qt::AlignCenter);
         label2->setAlignment(Qt::AlignCenter);
@@ -147,6 +147,7 @@ CAlarmSummary::CAlarmSummary(QWidget *parent) : CAbstractCard(parent)
         QChartView *chart = new QChartView(createBarChart(10));
         chart->setRenderHint(QPainter::Antialiasing);
         chart->setAttribute(Qt::WA_TranslucentBackground);
+        setStyleSheet("background: transparent;");  //透明色
         layoutMain->addWidget(chart);
     }
 }
