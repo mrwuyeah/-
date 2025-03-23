@@ -7,5 +7,11 @@
         <file>line.png</file>
         <file>map.png</file>
         <file>pointer.png</file>
+        <file>1.mp4</file>
+        <file>2.mp4</file>
+    </qresource>
+    <qresource prefix="/new">
+        <file>1.mp4</file>
+        <file>2.mp4</file>
     </qresource>
 </RCC>

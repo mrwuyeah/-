@@ -9,7 +9,6 @@
 #include <QPainter>
 #include <QPixmap>
 
-#include "abstractcard.h"
 #include "alarmsummary.h"
 #include "histroychart.h"
 #include "piechart.h"
@@ -27,7 +26,7 @@ CVisualizeData::CVisualizeData(QWidget *parent)
     m_pTitle->setFixedHeight(105);
     m_pDynamicsEarth->setMinimumSize(300, 300);
 
-    resize(1200, 800);
+    resize(2000, 800);
     setAttribute(Qt::WA_StyledBackground);
     //setStyleSheet("background-image: url(:/image/res/bg.jpg); background-repeat: no-repeat; background-position: center; background-attachment: fixed;");
     //showFullScreen();

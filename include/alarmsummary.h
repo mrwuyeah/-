@@ -5,6 +5,9 @@
 #include <QtWidgets/QWidget>
 #include <QtCharts/QChartGlobal>
 
+#include <QMediaPlayer>
+#include <QVideoWidget>
+
 QT_CHARTS_BEGIN_NAMESPACE
 class QChartView;
 class QChart;

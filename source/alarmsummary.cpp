@@ -27,6 +27,8 @@
 #include <QtWidgets/QApplication>
 #include <QtCharts/QValueAxis>
 
+#include <QMediaPlaylist>
+
 #if _MSC_VER >= 1600
 #pragma execution_character_set("utf-8")
 #endif
@@ -133,23 +135,79 @@ CAlarmSummary::CAlarmSummary(QWidget *parent) : CAbstractCard(parent)
     }
 
     {
-        QLabel *label1 = new QLabel("数据分析", this);
+        QLabel *label1 = new QLabel("车内疲劳检测", this);
         label1->setAlignment(Qt::AlignCenter);
-        label1->setStyleSheet("QLabel{color:#49bcf7; font-size:12px; border: 1px solid rgba(25,186,139,40); background: rgba(255,255,255,12)}");
+        label1->setStyleSheet("QLabel{color:#49bcf7; font-size:15px; border: 1px solid rgba(25,186,139,40); background: rgba(255,255,255,12)}");
+
+        QLabel *label2 = new QLabel("车外障碍监测", this);
+        label2->setAlignment(Qt::AlignCenter);
+        label2->setStyleSheet("QLabel{color:#49bcf7; font-size:15px; border: 1px solid rgba(25,186,139,40); background: rgba(255,255,255,12)}");
 
         QHBoxLayout *layoutRow = new QHBoxLayout();
         layoutRow->addWidget(CreateSeparator(false, this));
         layoutRow->addWidget(label1);
         layoutRow->addWidget(CreateSeparator(false, this));
 
+        QHBoxLayout *layoutRow2 = new QHBoxLayout();
+        layoutRow2->addWidget(CreateSeparator(false, this));
+        layoutRow2->addWidget(label2);
+        layoutRow2->addWidget(CreateSeparator(false, this));
+
         layoutMain->addLayout(layoutRow);
 
-        QChartView *chart = new QChartView(createBarChart(10));
-        chart->setRenderHint(QPainter::Antialiasing);
-        chart->setAttribute(Qt::WA_TranslucentBackground);
-        setStyleSheet("background: transparent;");  //透明色
-        layoutMain->addWidget(chart);
+        // QChartView *chart = new QChartView(createBarChart(10));
+        // chart->setRenderHint(QPainter::Antialiasing);
+        // chart->setAttribute(Qt::WA_TranslucentBackground);
+        // setStyleSheet("background: transparent;");  //透明色
+        // layoutMain->addWidget(chart);
+        // 添加视频播放器 1
+        QMediaPlaylist *playlist1 = new QMediaPlaylist(this);
+        playlist1->addMedia(QUrl("qrc:/new/1.mp4")); // 添加第一个视频
+        playlist1->setPlaybackMode(QMediaPlaylist::Loop); // 设置循环播放模式
+
+        QMediaPlayer *player1 = new QMediaPlayer(this);
+        QVideoWidget *videoWidget1 = new QVideoWidget(this);
+
+        // 设置视频播放器的最小和最大高度
+        videoWidget1->setMinimumHeight(300); // 最小高度为 300
+        videoWidget1->setMaximumHeight(600); // 最大高度为 600
+
+        player1->setPlaylist(playlist1); // 设置播放列表
+        player1->setVideoOutput(videoWidget1); // 设置视频输出
+
+
+        player1->play();
+
+        // 设置视频播放器样式
+        videoWidget1->setStyleSheet("background: transparent; border: 1px solid rgba(255, 255, 255, 50);");
+
+
+        // 添加视频播放器 2:/image/res/1.mp4
+        QMediaPlaylist *playlist2 = new QMediaPlaylist(this);
+        playlist2->addMedia(QUrl("qrc:/new/2.mp4")); // 添加第二个视频
+        playlist2->setPlaybackMode(QMediaPlaylist::Loop); // 设置循环播放模式
+
+        QMediaPlayer *player2 = new QMediaPlayer(this);
+        QVideoWidget *videoWidget2 = new QVideoWidget(this);
+
+        // 设置视频播放器的最小和最大高度
+        videoWidget2->setMinimumHeight(300); // 最小高度为 300
+        videoWidget2->setMaximumHeight(600); // 最大高度为 600
+
+        player2->setPlaylist(playlist2); // 设置播放列表
+        player2->setVideoOutput(videoWidget2); // 设置视频输出
+
+
+        player2->play();
+
+        // 设置视频播放器样式
+        videoWidget2->setStyleSheet("background: transparent; border: 1px solid rgba(255, 255, 255, 50);");
+
+        layoutMain->addWidget(videoWidget1);
+        layoutMain->addLayout(layoutRow2);
+        layoutMain->addWidget(videoWidget2);
     }
+
 }
 
 DataTable generateRandomData(int listCount, int valueMax, int valueCount)
@@ -173,42 +231,42 @@ DataTable generateRandomData(int listCount, int valueMax, int valueCount)
     return dataTable;
 }
 
-QChart *CAlarmSummary::createBarChart(int valueCount) const
-{
-    Q_UNUSED(valueCount);
-    QChart *chart = new QChart();
-    chart->setMargins(QMargins(0, 0, 0, 0));
-    chart->setBackgroundBrush(Qt::transparent);
-    chart->setTitle("");
-    chart->setAnimationOptions(QChart::AllAnimations);
+// QChart *CAlarmSummary::createBarChart(int valueCount) const
+// {
+//     Q_UNUSED(valueCount);
+//     QChart *chart = new QChart();
+//     chart->setMargins(QMargins(0, 0, 0, 0));
+//     chart->setBackgroundBrush(Qt::transparent);
+//     chart->setTitle("");
+//     chart->setAnimationOptions(QChart::AllAnimations);
 
-    DataTable m_dataTable = generateRandomData(2, 1800, 7);
+//     DataTable m_dataTable = generateRandomData(2, 1800, 7);
 
-    QStackedBarSeries *series = new QStackedBarSeries(chart);
-    for (int i(0); i < m_dataTable.count(); i++)
-    {
-        QBarSet *set = new QBarSet(i == 0 ? "人员报警" : "车辆报警");
-        set->setLabelColor(QColor("blue")); // 设置Series文本颜色为蓝色
-        for (const Data &data : m_dataTable[i])
-            *set << data.first.y();
-        series->append(set);
-    }
-    chart->addSeries(series);
+//     QStackedBarSeries *series = new QStackedBarSeries(chart);
+//     for (int i(0); i < m_dataTable.count(); i++)
+//     {
+//         QBarSet *set = new QBarSet(i == 0 ? "人员报警" : "车辆报警");
+//         set->setLabelColor(QColor("blue")); // 设置Series文本颜色为蓝色
+//         for (const Data &data : m_dataTable[i])
+//             *set << data.first.y();
+//         series->append(set);
+//     }
+//     chart->addSeries(series);
 
-    chart->createDefaultAxes();
-    chart->axes(Qt::Vertical).first()->setRange(0, 2000);
+//     chart->createDefaultAxes();
+//     chart->axes(Qt::Vertical).first()->setRange(0, 2000);
 
-    // Add space to label to add space between labels and axis
-    QValueAxis *axisY = qobject_cast<QValueAxis*>(chart->axes(Qt::Vertical).first());
-    Q_ASSERT(axisY);
-    axisY->setLabelFormat("%.1f  ");
+//     // Add space to label to add space between labels and axis
+//     QValueAxis *axisY = qobject_cast<QValueAxis*>(chart->axes(Qt::Vertical).first());
+//     Q_ASSERT(axisY);
+//     axisY->setLabelFormat("%.1f  ");
 
-    foreach (auto iter, chart->axes())
-    {
-        iter->setLabelsColor(QColor(255, 255, 255));
-    }
+//     foreach (auto iter, chart->axes())
+//     {
+//         iter->setLabelsColor(QColor(255, 255, 255));
+//     }
 
-    chart->legend()->setLabelColor(QColor(255, 255, 255));
+//     chart->legend()->setLabelColor(QColor(255, 255, 255));
 
-    return chart;
-}
+//     return chart;
+// }
