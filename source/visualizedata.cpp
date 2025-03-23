@@ -65,24 +65,27 @@ void CVisualizeData::Layout()
     layoutMain->setSpacing(0);
 
     QVBoxLayout *layoutLeft = new QVBoxLayout();
-    layoutLeft->setSpacing(10);
+    layoutLeft->setSpacing(20);
     layoutLeft->setMargin(0);
-    layoutLeft->addWidget(new CAlarmSummary(), 2);
-    layoutLeft->addWidget(new CHistroyChart(), 1);
+    layoutLeft->addWidget(new CAlarmSummary(), 3);
+    // layoutLeft->addWidget(m_pDynamicsEarth, 1);
+
 
     QVBoxLayout *layoutCenter = new QVBoxLayout();
     layoutCenter->setSpacing(10);
     layoutCenter->setMargin(0);
     layoutCenter->addWidget(new CDataSummary(), 1);
-    layoutCenter->addWidget(m_pDynamicsEarth, 2);
     layoutCenter->addWidget(new CCirculardialSummary(), 1);
+    layoutCenter->addWidget(m_pDynamicsEarth, 2);
+    layoutCenter->addWidget(new CRollAlarm(), 2);
+
 
     QVBoxLayout *layoutRight = new QVBoxLayout();
     layoutRight->setSpacing(10);
     layoutRight->setMargin(0);
-    layoutRight->addWidget(new CPieChart(), 3);
-    layoutRight->addWidget(new CDynamicAlarm(), 1);
-    layoutRight->addWidget(new CRollAlarm(), 2);
+    layoutRight->addWidget(new CDynamicAlarm(), 2);
+    layoutRight->addWidget(new CPieChart(), 2);
+    layoutRight->addWidget(new CHistroyChart(), 2);
 
     QHBoxLayout *layoutContent = new QHBoxLayout();
     layoutContent->setMargin(10);

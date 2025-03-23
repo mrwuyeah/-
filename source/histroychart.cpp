@@ -65,7 +65,7 @@ QChart *CHistroyChart::createSplineChart() const
     QString name("Series ");
     int nameIndex = 0;
 
-    DataTable m_dataTable = generateRandomData(2, 1800, 20);
+    DataTable m_dataTable = generateRandomData(2, 100, 20);
     for (const DataList &list : m_dataTable)
     {
         QSplineSeries *series = new QSplineSeries(chart);
@@ -106,7 +106,7 @@ void CHistroyChart::InsertChartData()
             while (pSeries->count() >= 20)
                 pSeries->remove(0);
 
-            pSeries->append(pSeries->at(pSeries->count() - 1).x() + 1, QRandomGenerator::global()->bounded(1800));
+            pSeries->append(pSeries->at(pSeries->count() - 1).x() + 1, QRandomGenerator::global()->bounded(100));
 
             QList<QPointF> listPt = pSeries->points();
             if (listPt.count() > 0)
@@ -121,7 +121,7 @@ void CHistroyChart::InsertChartData()
             while (pSeries->count() >= 20)
                 pSeries->remove(0);
 
-            pSeries->append(pSeries->at(pSeries->count() - 1).x() + 1, QRandomGenerator::global()->bounded(1800));
+            pSeries->append(pSeries->at(pSeries->count() - 1).x() + 1, QRandomGenerator::global()->bounded(100));
 
 
             QList<QPointF> listPt = pSeries->points();

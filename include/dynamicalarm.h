@@ -4,6 +4,9 @@
 #include "abstractcard.h"
 #include <QPainter>
 #include <QPainterPath>
+#include <QMediaPlayer>
+#include <QVideoWidget>
+#include <QMediaPlaylist>
 
 class CLineSlider: public QWidget
 {
@@ -51,6 +54,12 @@ public:
 signals:
 
 public slots:
+
+private:
+    QMediaPlayer *player3;       // 视频播放器
+    QVideoWidget *videoWidget3;  // 视频显示控件
+    QMediaPlaylist *playlist3;
+    QWidget *videoContainer3;
 };
 
 #endif // DYNAMICALARM_H

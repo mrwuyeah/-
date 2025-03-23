@@ -27,14 +27,14 @@ CDynamicAlarm::CDynamicAlarm(QWidget *parent) : CAbstractCard(parent)
         {
             QPropertyAnimation *animation1 = new QPropertyAnimation(slider, "value");
             animation1->setDuration(1000);
-            animation1->setStartValue(0);
-            animation1->setEndValue(100);
+            animation1->setStartValue(55);
+            animation1->setEndValue(75);
             animation1->setEasingCurve(QEasingCurve::OutQuad);
 
             QPropertyAnimation *animation2 = new QPropertyAnimation(slider, "value");
             animation2->setDuration(2000);
-            animation2->setStartValue(100);
-            animation2->setEndValue(0);
+            animation2->setStartValue(80);
+            animation2->setEndValue(60);
             animation2->setEasingCurve(QEasingCurve::InCubic);
 
             // 创建动画组并添加动画对象
@@ -49,10 +49,10 @@ CDynamicAlarm::CDynamicAlarm(QWidget *parent) : CAbstractCard(parent)
     }
 
     {
-        QLabel *label1 = new QLabel("当前报警设置数量:", this);
-        QLabel *label2 = new QLabel("123", this);
-        QLabel *label3 = new QLabel("新增设备:", this);
-        QLabel *label4 = new QLabel("556", this);
+        QLabel *label1 = new QLabel("最近障碍物距离:", this);
+        QLabel *label2 = new QLabel("60厘米", this);
+        QLabel *label3 = new QLabel("障碍物方向:", this);
+        QLabel *label4 = new QLabel("右前方", this);
 
         label1->setStyleSheet("QLabel{color:#637c9f; font-size:12px;}");
         label2->setStyleSheet("QLabel{color:#ff0000; font-size:12px;}");
@@ -69,6 +69,42 @@ CDynamicAlarm::CDynamicAlarm(QWidget *parent) : CAbstractCard(parent)
 
         layoutMain->addLayout(layoutRow);
     }
+
+    // 添加视频播放器 1
+    playlist3 = new QMediaPlaylist(this);
+    player3 = new QMediaPlayer(this);
+
+    // 创建一个容器 widget
+    videoContainer3 = new QWidget(this);
+    videoContainer3->setStyleSheet("background: blue; border: 1px solid rgba(255, 255, 255, 50);");
+
+    videoWidget3 = new QVideoWidget(videoContainer3);
+    // 创建一个布局用于容器
+    QVBoxLayout *videoLayout3 = new QVBoxLayout(videoContainer3);
+    // 创建 QVideoWidget 并添加到容器中
+    videoLayout3->addWidget(videoWidget3);
+    videoContainer3->setLayout(videoLayout3);
+
+    player3->setVideoOutput(videoWidget3); // 设置视频输出
+    QString videoPath;
+    videoPath = "C:\\Users\\18163\\Desktop\\QT\\qt_test_1\\test_1\\11.mp4";
+    playlist3->addMedia(QUrl::fromLocalFile(videoPath));
+    // playlist1->addMedia(QUrl("qrc:/image/res/1.mp4")); // 添加第一个视频
+    player3->setPlaylist(playlist3); // 设置播放列表
+
+
+    // 设置视频播放器的最小和最大高度
+    videoContainer3->setMinimumHeight(300); // 最小高度为 300
+    videoContainer3->setMaximumHeight(600); // 最大高度为 600
+    // 将容器 widget 添加到主布局
+    layoutMain->addWidget(videoContainer3);
+
+
+
+    // 播放视频
+    player3->play();
+
+
 }
 
 int CLineSlider::getValue() const

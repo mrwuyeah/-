@@ -33,6 +33,7 @@ public:
 private:
     void paintEvent(QPaintEvent *event);
     void paintBg(QPainter &p);
+    int m_dialDiameter; // 表盘直径
 
 private:
     int m_nLow;

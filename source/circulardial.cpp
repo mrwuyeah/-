@@ -23,6 +23,7 @@ static QRectF textRectF(double radius, int pointSize, double angle)
 
 CircularDial::CircularDial(QWidget *parent) : QWidget(parent)
 {
+    m_dialDiameter = 300;
     m_nLow = 30;
     m_nHigh = 120;
     m_nMax = 220;
@@ -58,7 +59,7 @@ void CircularDial::paintEvent(QPaintEvent *event)
 
     int side = qMin(rcBase.width(), rcBase.height());
     p.scale(side / 300.0, side / 300.0);
-    QRect rcCircularDial(-150, -150, 300, 300);
+    QRect rcCircularDial(-m_dialDiameter / 2, -m_dialDiameter / 2, m_dialDiameter, m_dialDiameter);
 
     const double START_ANGLE = -60;
     const double ALL_ANGLE = 360 - 2 * (90 + START_ANGLE);
@@ -121,7 +122,7 @@ void CircularDial::paintBg(QPainter &painter)
 
         int side = qMin(rcBase.width(), rcBase.height());
         p.scale(side / 300.0, side / 300.0);
-        QRect rcCircularDial(-150, -150, 300, 300);
+        QRect rcCircularDial(-m_dialDiameter / 2, -m_dialDiameter / 2, m_dialDiameter, m_dialDiameter);
 
         const double START_ANGLE = -60;
         const double ALL_ANGLE = 360 - 2 * (90 + START_ANGLE);

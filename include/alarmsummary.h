@@ -7,6 +7,7 @@
 
 #include <QMediaPlayer>
 #include <QVideoWidget>
+#include <QMediaPlaylist>
 
 QT_CHARTS_BEGIN_NAMESPACE
 class QChartView;
@@ -25,9 +26,20 @@ class CAlarmSummary : public CAbstractCard
 public:
     explicit CAlarmSummary(QWidget *parent = nullptr);
     QChart *createBarChart(int valueCount) const;
+    QWidget *getVideoContainer1() const;
+
 signals:
 
 public slots:
+
+private slots:
+
+private:
+    QMediaPlayer *player1;       // 视频播放器
+    QVideoWidget *videoWidget1;  // 视频显示控件
+    QMediaPlaylist *playlist1;
+    QWidget *videoContainer1;
+    Q_PROPERTY(QWidget *videoContainer1 READ getVideoContainer1 CONSTANT FINAL)
 };
 
 DataTable generateRandomData(int listCount, int valueMax, int valueCount);
