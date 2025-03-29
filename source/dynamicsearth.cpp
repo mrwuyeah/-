@@ -2,6 +2,8 @@
 #include <QPainter>
 #include <QTimerEvent>
 #include <QDebug>
+#include <QWebEngineSettings>  // 必须添加
+#include <QWebEngineView>      // 如果使用 QWebEngineView
 
 
 CDynamicsEarth::CDynamicsEarth(QWidget *parent) : QWidget(parent)
@@ -26,28 +28,33 @@ CDynamicsEarth::CDynamicsEarth(QWidget *parent) : QWidget(parent)
     startTimer(40);
 }
 
-void CDynamicsEarth::paintEvent(QPaintEvent *)
-{
+void CDynamicsEarth::paintEvent(QPaintEvent *) {
     QPainter painter(this);
-    painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
+    painter.setRenderHints(
+        QPainter::Antialiasing |
+        QPainter::SmoothPixmapTransform |
+        QPainter::TextAntialiasing
+        );
 
-    // 绘制背景地球
+    // 使用 GPU 优化的 drawPixmap 重载
     if (!m_pixBg.isNull()) {
-        painter.drawPixmap(
-            (width() - m_pixBg.width()) / 2,
-            (height() - m_pixBg.height()) / 2,
-            m_pixBg
+        QRectF targetRect(
+            (width() - m_pixBg.width()) / 2.0,
+            (height() - m_pixBg.height()) / 2.0,
+            m_pixBg.width(),
+            m_pixBg.height()
             );
+        painter.drawPixmap(targetRect, m_pixBg, m_pixBg.rect());
     }
 
-    // 绘制旋转效果
+    // 旋转效果（GPU 加速）
     if (!m_pixMask1.isNull()) {
         painter.save();
         painter.translate(rect().center());
         painter.rotate(angle);
         painter.drawPixmap(
-            -m_pixMask1.width() / 2,
-            -m_pixMask1.height() / 2,
+            -m_pixMask1.width() / 2.0,
+            -m_pixMask1.height() / 2.0,
             m_pixMask1
             );
         painter.restore();
@@ -95,6 +102,23 @@ void CDynamicsEarth::showMap()
     // }
 
     if (!m_webView) {
+
+        // 启用 WebEngine 的硬件加速
+        QWebEngineSettings::defaultSettings()->setAttribute(
+            QWebEngineSettings::Accelerated2dCanvasEnabled, true
+            );
+        QWebEngineSettings::defaultSettings()->setAttribute(
+            QWebEngineSettings::WebGLEnabled, true
+            );
+        QWebEngineSettings::defaultSettings()->setAttribute(
+            QWebEngineSettings::PluginsEnabled, true
+            );
+
+        m_webView = new QWebEngineView();
+        m_webView->page()->settings()->setAttribute(
+            QWebEngineSettings::LocalStorageEnabled, true
+            );
+
         m_webView = new QWebEngineView(); // 不指定父对象
         m_webView->setAttribute(Qt::WA_DeleteOnClose);
         connect(m_webView, &QWebEngineView::destroyed, [this]() {
