@@ -13,5 +13,6 @@
     <qresource prefix="/new">
         <file>1.mp4</file>
         <file>2.mp4</file>
+        <file>map.html</file>
     </qresource>
 </RCC>

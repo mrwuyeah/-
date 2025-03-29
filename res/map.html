@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>地图显示</title>
+    <style>
+        html, body, #container {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+
+<script src="https://webapi.amap.com/maps?v=2.0&key=aa4d895704ac4dfac9dc15aadb55b61f"></script>
+<script>
+    var map = new AMap.Map('container', {
+        viewMode: '2D',
+        zoom: 11,
+        center: [116.397428, 39.90923]
+    });
+
+    // 提供给 Qt 调用的全屏函数
+    function enterFullscreen() {
+        var container = document.getElementById('container');
+        if (container.requestFullscreen) {
+            container.requestFullscreen();
+        } else if (container.webkitRequestFullscreen) { // Safari
+            container.webkitRequestFullscreen();
+        } else if (container.msRequestFullscreen) { // IE11
+            container.msRequestFullscreen();
+        }
+    }
+
+    // 提供给 Qt 调用的退出全屏函数
+    function exitFullscreen() {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) { // Safari
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { // IE11
+            document.msExitFullscreen();
+        }
+    }
+</script>
+</body>
+</html>
