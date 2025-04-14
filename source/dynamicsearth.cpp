@@ -7,11 +7,7 @@
 CDynamicsEarth::CDynamicsEarth(QWidget *parent) : QWidget(parent)
 {
 
-    // 启用 OpenGL 渲染和透明背景
-    setAttribute(Qt::WA_TranslucentBackground);
-    setAttribute(Qt::WA_OpaquePaintEvent);
-    setAttribute(Qt::WA_AlwaysStackOnTop);
-    setAttribute(Qt::WA_PaintOnScreen);  // 直接渲染到屏幕，绕过 Qt 的合成器
+
 
     // 初始化地球图片
     resizeEvent(nullptr);

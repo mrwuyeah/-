@@ -11,7 +11,7 @@
 
 CPieChart::CPieChart(QWidget *parent) : CAbstractCard(parent)
 {
-    setTitle("故障比例");
+    setTitle("车载CAN协议诊断");
 
     QVBoxLayout *layoutMain = new QVBoxLayout(getMainWnd());
     layoutMain->setContentsMargins(0, 6, 0, 0);
@@ -58,7 +58,7 @@ CPieChart::CPieChart(QWidget *parent) : CAbstractCard(parent)
         QVector<double> ticks;
         QVector<QString> labels;
         ticks << 1 << 2 << 3 << 4 << 5 << 6 << 7;
-        labels << "安庆" << "怀宁" << "芜湖" << "无为" << "赫店" << "上海" << "北京";
+        labels << "控制器" << "反馈" << "转速" << "油位" << "母线电压" << "过温" << "过流";
 
         QSharedPointer<QCPAxisTickerText> textTicker(new QCPAxisTickerText);
         textTicker->addTicks(ticks, labels);
@@ -113,13 +113,33 @@ CPieChart::CPieChart(QWidget *parent) : CAbstractCard(parent)
         QTimer *dataTimer = new QTimer();
         connect(dataTimer, &QTimer::timeout, [=]
         {
-            double a = QRandomGenerator::global()->generateDouble() * 10;
-            double b = QRandomGenerator::global()->generateDouble() * 10;
-            double c = QRandomGenerator::global()->generateDouble() * 10;
-            double d = QRandomGenerator::global()->generateDouble() * 10;
-            double e = QRandomGenerator::global()->generateDouble() * 10;
-            double f = QRandomGenerator::global()->generateDouble() * 10;
-            double g = QRandomGenerator::global()->generateDouble() * 10;
+            // double a = QRandomGenerator::global()->generateDouble() * 10;
+            // double b = QRandomGenerator::global()->generateDouble() * 10;
+            // double c = QRandomGenerator::global()->generateDouble() * 10;
+            // double d = QRandomGenerator::global()->generateDouble() * 10;
+            // double e = QRandomGenerator::global()->generateDouble() * 10;
+            // double f = QRandomGenerator::global()->generateDouble() * 10;
+            // double g = QRandomGenerator::global()->generateDouble() * 10;
+            // 基准值（对应 a-g 的初始值）
+            QVector<double> baseValues = {10.5, 5.5, 5.5, 5.8, 5.2, 4.2, 11.2};
+
+            // 生成 a-g，使其在基准值 ±1 范围内浮动
+            QVector<double> randomValues;
+            for (double base : baseValues) {
+                double randomOffset = (QRandomGenerator::global()->generateDouble() * 2.0) - 1.0; // [-1.0, 1.0)
+                double value = base + randomOffset;
+                value = std::max(value, 0.0); // 确保不会出现负数
+                randomValues << value;
+            }
+
+            // 提取 a-g
+            double a = randomValues[0];
+            double b = randomValues[1];
+            double c = randomValues[2];
+            double d = randomValues[3];
+            double e = randomValues[4];
+            double f = randomValues[5];
+            double g = randomValues[6];
 
             QVector<double> fossilData, nuclearData, regenData;
             fossilData  << 0.16 * a << 0.83 * b << 0.84 * c << 0.52 * d << 0.89 * e << 0.90 * f << 0.67 * g;
@@ -138,7 +158,7 @@ CPieChart::CPieChart(QWidget *parent) : CAbstractCard(parent)
     {
         QLabel *label1 = new QLabel("故障分析", this);
         label1->setAlignment(Qt::AlignCenter);
-        label1->setStyleSheet("QLabel{color:#49bcf7; font-size:12px; border: 1px solid rgba(25,186,139,40); background: rgba(255,255,255,12)}");
+        label1->setStyleSheet("QLabel{color:#49bcf7; font-size:14px; border: 1px solid rgba(25,186,139,40); background: rgba(255,255,255,12)}");
 
         QHBoxLayout *layoutRow = new QHBoxLayout();
         layoutRow->addWidget(CreateSeparator(false, this));
@@ -150,9 +170,9 @@ CPieChart::CPieChart(QWidget *parent) : CAbstractCard(parent)
 
     {
         CPieWidget *pie1 = new CPieWidget(this);
-        pie1->append(0.2, "人员抓拍");
-        pie1->append(0.3, "车辆抓拍");
-        pie1->append(0.4, "违章抓拍");
+        pie1->append(0.2, "控制器指令故障");
+        pie1->append(0.3, "执行机构反馈故障");
+        pie1->append(0.5, "参数阈值解析错误");
         layoutMain->addWidget(pie1);
     }
 }
