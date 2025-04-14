@@ -75,24 +75,27 @@ void CVisualizeData::Layout()
     layoutCenter->setSpacing(10);
     layoutCenter->setMargin(0);
     layoutCenter->addWidget(new CDataSummary(), 1);
-    layoutCenter->addWidget(new CCirculardialSummary(), 1);
+    // layoutCenter->addWidget(new CCirculardialSummary(), 1);
+    // layoutCenter->addWidget(new CHistroyChart(), 1);
+    layoutCenter->addWidget(new CPieChart(), 1);
     layoutCenter->addWidget(m_pDynamicsEarth, 2);
-    layoutCenter->addWidget(new CRollAlarm(), 2);
+    layoutCenter->addWidget(new CCirculardialSummary(), 2);
 
 
     QVBoxLayout *layoutRight = new QVBoxLayout();
     layoutRight->setSpacing(10);
     layoutRight->setMargin(0);
     layoutRight->addWidget(new CDynamicAlarm(), 2);
-    layoutRight->addWidget(new CPieChart(), 2);
-    layoutRight->addWidget(new CHistroyChart(), 2);
+    // layoutRight->addWidget(new CPieChart(), 2);
+    // layoutRight->addWidget(new CHistroyChart(), 2);
+    layoutRight->addWidget(new CRollAlarm(), 2);
 
     QHBoxLayout *layoutContent = new QHBoxLayout();
     layoutContent->setMargin(10);
     layoutContent->setSpacing(40);
-    layoutContent->addLayout(layoutLeft, 2);
-    layoutContent->addLayout(layoutCenter, 3);
-    layoutContent->addLayout(layoutRight, 2);
+    layoutContent->addLayout(layoutLeft, 1);
+    layoutContent->addLayout(layoutCenter, 1);
+    layoutContent->addLayout(layoutRight, 1);
 
     layoutMain->addWidget(m_pTitle);
     layoutMain->addLayout(layoutContent, 1);

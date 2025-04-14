@@ -23,7 +23,7 @@ static QRectF textRectF(double radius, int pointSize, double angle)
 
 CircularDial::CircularDial(QWidget *parent) : QWidget(parent)
 {
-    m_dialDiameter = 300;
+    m_dialDiameter = 280;
     m_nLow = 30;
     m_nHigh = 120;
     m_nMax = 220;
@@ -219,7 +219,7 @@ void CircularDial::paintBg(QPainter &painter)
             else
                 p.setPen(QColor("#ff4400"));
 
-            p.drawText(textRectF(150 * 0.8, ftTmp1.pixelSize() + 5, 180 + START_ANGLE + i * BIG_SINGLE_ANGLE),
+            p.drawText(textRectF(150 * 0.7, ftTmp1.pixelSize() + 5, 180 + START_ANGLE + i * BIG_SINGLE_ANGLE),
                        Qt::AlignCenter,
                        QString::number(i * 10));
         }

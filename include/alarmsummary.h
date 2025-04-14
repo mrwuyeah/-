@@ -4,19 +4,26 @@
 #include "abstractcard.h"
 #include <QtWidgets/QWidget>
 #include <QtCharts/QChartGlobal>
-
 #include <QMediaPlayer>
 #include <QVideoWidget>
 #include <QMediaPlaylist>
+#include <QTcpServer>
+#include <QTcpSocket>
+#include <QLabel>
+#include <QProcess>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QPushButton>
+
 
 QT_CHARTS_BEGIN_NAMESPACE
-class QChartView;
+    class QChartView;
 class QChart;
 QT_CHARTS_END_NAMESPACE
 
-QT_CHARTS_USE_NAMESPACE
+        QT_CHARTS_USE_NAMESPACE
 
-typedef QPair<QPointF, QString> Data;
+    typedef QPair<QPointF, QString> Data;
 typedef QList<Data> DataList;
 typedef QList<DataList> DataTable;
 
@@ -25,21 +32,43 @@ class CAlarmSummary : public CAbstractCard
     Q_OBJECT
 public:
     explicit CAlarmSummary(QWidget *parent = nullptr);
-    QChart *createBarChart(int valueCount) const;
+    ~CAlarmSummary();
     QWidget *getVideoContainer1() const;
 
-signals:
-
-public slots:
-
 private slots:
+    void onNewConnection();
+    void onClientReadyRead();
+    void onClientDisconnected();
+    void onServerError(QAbstractSocket::SocketError socketError);
+    void startDetection();
+    void readProcessOutput();
+    void processFinished(int exitCode);
+    void updateFrame(const QJsonObject &data);
 
 private:
-    QMediaPlayer *player1;       // 视频播放器
-    QVideoWidget *videoWidget1;  // 视频显示控件
-    QMediaPlaylist *playlist1;
+    // 视频相关成员
+    QLabel *videoLabel;
+    QProcess *process;
+    QString pythonScriptPath;
     QWidget *videoContainer1;
-    Q_PROPERTY(QWidget *videoContainer1 READ getVideoContainer1 CONSTANT FINAL)
+    QMediaPlayer *player2;
+
+    // TCP服务器相关成员
+    QTcpServer *m_tcpServer;
+    QTcpSocket *m_clientSocket;
+
+    // 传感器显示标签
+    QLabel *m_tempLabel;
+    QLabel *m_humidityLabel;
+    QLabel *m_lightLabel;
+
+    // 数据更新方法
+    void setTemperature(float value);
+    void setHumidity(float value);
+    void setLightIntensity(float value);
+    void drawDetections(QPixmap &pixmap, const QJsonArray &detections);
+
+    QPushButton *playButton;
 };
 
 DataTable generateRandomData(int listCount, int valueMax, int valueCount);

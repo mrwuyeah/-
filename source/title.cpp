@@ -27,7 +27,7 @@ void CTitle::paintEvent(QPaintEvent *)
     QFont font = this->font();
     font.setPixelSize(42);
     painter.setFont(font);
-    painter.drawText(rect(), Qt::AlignCenter, "智能驾驶及其疲劳检测监控平台v3.6.0");
+    painter.drawText(rect(), Qt::AlignCenter, "新能源房车智能驾驶及其疲劳检测监控平台v3.6.0");
 
     QDateTime currentDateTime = QDateTime::currentDateTime();
     QString formattedDateTime = currentDateTime.toString("yyyy年M月d日 hh:mm:ss");

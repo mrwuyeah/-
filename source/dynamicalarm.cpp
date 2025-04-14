@@ -87,7 +87,7 @@ CDynamicAlarm::CDynamicAlarm(QWidget *parent) : CAbstractCard(parent)
 
     player3->setVideoOutput(videoWidget3); // 设置视频输出
     QString videoPath;
-    videoPath = "C:\\Users\\18163\\Desktop\\QT\\qt_test_1\\test_1\\11.mp4";
+    videoPath = "C:\\Users\\18163\\Desktop\\QT\\qt_test_1\\test_1\\3.mp4";
     playlist3->addMedia(QUrl::fromLocalFile(videoPath));
     // playlist1->addMedia(QUrl("qrc:/image/res/1.mp4")); // 添加第一个视频
     player3->setPlaylist(playlist3); // 设置播放列表
@@ -100,12 +100,73 @@ CDynamicAlarm::CDynamicAlarm(QWidget *parent) : CAbstractCard(parent)
     layoutMain->addWidget(videoContainer3);
 
 
+    // 在CDynamicAlarm构造函数中添加两个按钮
+    QHBoxLayout *buttonLayout = new QHBoxLayout();
 
-    // 播放视频
-    player3->play();
+    // 播放按钮
+    QPushButton *playButton = new QPushButton("开始检测", this);
+    playButton->setStyleSheet(
+        "QPushButton {"
+        "   background-color: #4CAF50;"
+        "   border: none;"
+        "   color: white;"
+        "   padding: 8px 16px;"
+        "   font-size: 14px;"
+        "   border-radius: 4px;"
+        "   min-width: 80px;"
+        "}"
+        "QPushButton:hover {"
+        "   background-color: #45a049;"
+        "}"
+        "QPushButton:pressed {"
+        "   background-color: #3e8e41;"
+        "}"
+        );
+    playButton->setFixedHeight(36);
+
+    // 暂停按钮
+    QPushButton *pauseButton = new QPushButton("停止检测", this);
+    pauseButton->setStyleSheet(
+        "QPushButton {"
+        "   background-color: #f44336;"
+        "   border: none;"
+        "   color: white;"
+        "   padding: 8px 16px;"
+        "   font-size: 14px;"
+        "   border-radius: 4px;"
+        "   min-width: 80px;"
+        "}"
+        "QPushButton:hover {"
+        "   background-color: #d32f2f;"
+        "}"
+        "QPushButton:pressed {"
+        "   background-color: #b71c1c;"
+        "}"
+        );
+    pauseButton->setFixedHeight(36);
+
+    buttonLayout->addStretch();
+    buttonLayout->addWidget(playButton);
+    buttonLayout->addSpacing(10);  // 添加按钮间距
+    buttonLayout->addWidget(pauseButton);
+    buttonLayout->addStretch();
+    layoutMain->addLayout(buttonLayout);
+
+    // 连接按钮信号
+    connect(playButton, &QPushButton::clicked, [this]() {
+        player3->play();
+    });
+    connect(pauseButton, &QPushButton::clicked, [this]() {
+        player3->pause();
+    });
 
 
+
+    // // 播放视频
+    // player3->play();
 }
+
+
 
 int CLineSlider::getValue() const
 {

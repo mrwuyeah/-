@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui webenginewidgets
+QT       += core gui webenginewidgets network
 QT += charts
 QT += printsupport
 QT += multimedia

@@ -5,6 +5,7 @@
 #include <QWebEngineView>
 #include <QPushButton>
 #include <QMouseEvent>
+#include <QLabel>
 
 class CDynamicsEarth : public QWidget
 {
@@ -28,6 +29,8 @@ private:
     QPushButton *m_mapButton;
     QWebEngineView *m_webView = nullptr;
     int angle = 0;
+
+    QLabel *m_titleLabel;  // 添加标题标签成员变量
 };
 
 #endif // DYNAMICSEARTH_H

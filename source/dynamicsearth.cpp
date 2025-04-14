@@ -2,16 +2,38 @@
 #include <QPainter>
 #include <QTimerEvent>
 #include <QDebug>
+#include <QVBoxLayout>
 
 
 CDynamicsEarth::CDynamicsEarth(QWidget *parent) : QWidget(parent)
 {
 
     // 启用 OpenGL 渲染和透明背景
-    setAttribute(Qt::WA_TranslucentBackground);
-    setAttribute(Qt::WA_OpaquePaintEvent);
-    setAttribute(Qt::WA_AlwaysStackOnTop);
-    setAttribute(Qt::WA_PaintOnScreen);  // 直接渲染到屏幕，绕过 Qt 的合成器
+    // setAttribute(Qt::WA_TranslucentBackground);
+    // setAttribute(Qt::WA_OpaquePaintEvent);
+    // setAttribute(Qt::WA_AlwaysStackOnTop);
+    // setAttribute(Qt::WA_PaintOnScreen);  // 直接渲染到屏幕，绕过 Qt 的合成器
+
+    // 创建主布局
+    QVBoxLayout *mainLayout = new QVBoxLayout(this);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
+    mainLayout->setSpacing(0);
+
+    // 创建并设置标题标签
+    m_titleLabel = new QLabel("导航系统", this);
+    m_titleLabel->setAlignment(Qt::AlignCenter);
+    m_titleLabel->setStyleSheet(
+        "QLabel {"
+        "   font-size: 18px;"
+        "   font-weight: bold;"
+        "   color: white;"
+        "   background-color: transparent;"  // 道奇蓝
+        "   padding: 8px;"
+        "   margin-bottom: 10px;"
+        "}"
+        );
+    m_titleLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    mainLayout->addWidget(m_titleLabel);
 
     // 初始化地球图片
     resizeEvent(nullptr);

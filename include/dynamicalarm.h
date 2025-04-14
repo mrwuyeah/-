@@ -7,6 +7,7 @@
 #include <QMediaPlayer>
 #include <QVideoWidget>
 #include <QMediaPlaylist>
+#include <QPushButton>
 
 class CLineSlider: public QWidget
 {
@@ -43,6 +44,7 @@ protected:
 
 private:
     int m_value;
+
 };
 
 class CDynamicAlarm : public CAbstractCard
@@ -60,6 +62,11 @@ private:
     QVideoWidget *videoWidget3;  // 视频显示控件
     QMediaPlaylist *playlist3;
     QWidget *videoContainer3;
+    QPushButton *playButton;
+
+
+
+private slots:
 };
 
 #endif // DYNAMICALARM_H

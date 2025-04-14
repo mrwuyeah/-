@@ -9,6 +9,8 @@
         <file>pointer.png</file>
         <file>1.mp4</file>
         <file>2.mp4</file>
+        <file>3.mp4</file>
+        <file>4.mp4</file>
     </qresource>
     <qresource prefix="/new">
         <file>1.mp4</file>
