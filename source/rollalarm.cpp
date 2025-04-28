@@ -91,7 +91,7 @@ CRollAlarm::CRollAlarm(QWidget *parent) : CAbstractCard(parent) {
         if (m_alarmCount % 5 == 0) {
             alarmMsg = "系统检测到疲劳驾驶";
         } else if (m_alarmCount % 3 == 0) {
-            alarmMsg = "酒精含量超标警告";
+            alarmMsg = "酒精含量超标正常";
         } else {
             alarmMsg = "系统运行正常";
         }
