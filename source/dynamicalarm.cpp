@@ -76,7 +76,7 @@ CDynamicAlarm::CDynamicAlarm(QWidget *parent) : CAbstractCard(parent)
 
     // 创建一个容器 widget
     videoContainer3 = new QWidget(this);
-    videoContainer3->setStyleSheet("background: blue; border: 1px solid rgba(255, 255, 255, 50);");
+    videoContainer3->setStyleSheet("background: transparent; border: 1px solid rgba(255, 255, 255, 50);");
 
     videoWidget3 = new QVideoWidget(videoContainer3);
     // 创建一个布局用于容器
@@ -87,7 +87,7 @@ CDynamicAlarm::CDynamicAlarm(QWidget *parent) : CAbstractCard(parent)
 
     player3->setVideoOutput(videoWidget3); // 设置视频输出
     QString videoPath;
-    videoPath = "C:\\Users\\18163\\Desktop\\QT\\qt_test_1\\test_1\\11.mp4";
+    // videoPath = "C:\\Users\\18163\\Desktop\\QT\\qt_test_1\\test_1\\11.mp4";
     playlist3->addMedia(QUrl::fromLocalFile(videoPath));
     // playlist1->addMedia(QUrl("qrc:/image/res/1.mp4")); // 添加第一个视频
     player3->setPlaylist(playlist3); // 设置播放列表

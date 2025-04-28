@@ -172,7 +172,7 @@ CAlarmSummary::CAlarmSummary(QWidget *parent) : CAbstractCard(parent)
 
     // 创建一个容器 widget
     videoContainer1 = new QWidget(this);
-    videoContainer1->setStyleSheet("background: blue; border: 1px solid rgba(255, 255, 255, 50);");
+    // videoContainer1->setStyleSheet("background: blue; border: 1px solid rgba(255, 255, 255, 50);");
 
     videoWidget1 = new QVideoWidget(videoContainer1);
     // 创建一个布局用于容器
@@ -183,7 +183,7 @@ CAlarmSummary::CAlarmSummary(QWidget *parent) : CAbstractCard(parent)
 
     player1->setVideoOutput(videoWidget1); // 设置视频输出
     QString videoPath;
-    videoPath = "C:\\Users\\18163\\Desktop\\QT\\qt_test_1\\test_1\\11.mp4";
+    // videoPath = "C:\\Users\\18163\\Desktop\\QT\\qt_test_1\\test_1\\11.mp4";
     playlist1->addMedia(QUrl::fromLocalFile(videoPath));
     // playlist1->addMedia(QUrl("qrc:/image/res/1.mp4")); // 添加第一个视频
     player1->setPlaylist(playlist1); // 设置播放列表
@@ -200,13 +200,13 @@ CAlarmSummary::CAlarmSummary(QWidget *parent) : CAbstractCard(parent)
 
 
     // 设置视频播放器样式
-    // videoWidget1->setStyleSheet("border: 1px solid rgba(255, 255, 255, 50);");
+    videoWidget1->setStyleSheet("background: transparent; border: 1px solid rgba(255, 255, 255, 50);");
 
 
     // 添加视频播放器 2:/image/res/1.mp4
     QMediaPlaylist *playlist2 = new QMediaPlaylist(this);
     QString videoPath2;
-    videoPath2 = "C:\\Users\\18163\\Desktop\\QT\\qt_test_1\\test_1\\22.mp4";
+    // videoPath2 = "C:\\Users\\18163\\Desktop\\QT\\qt_test_1\\test_1\\22.mp4";
     playlist2->addMedia(QUrl::fromLocalFile(videoPath2));
     //playlist2->addMedia(QUrl("qrc:/new/2.mp4")); // 添加第二个视频
 
