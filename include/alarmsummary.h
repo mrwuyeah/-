@@ -46,6 +46,10 @@ private slots:
     void updateFrame(const QJsonObject &data);
 
 private:
+
+    int fatigueCount = 1;  // 控制label1的变量
+    QLabel *fatigueCountLabel;  // 显示疲劳次数的Label
+
     // 视频相关成员
     QLabel *videoLabel;
     QProcess *process;

@@ -12,6 +12,9 @@ public:
 
 signals:
 
+private:
+
+
 public slots:
 };
 

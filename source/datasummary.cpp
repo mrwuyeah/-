@@ -71,8 +71,8 @@ CDataSummary::CDataSummary(QWidget *parent) : CAbstractCard(parent)
 
     {
         QLabel *label1 = new QLabel("5分钟内检测疲劳次数", this);
-        QLabel *label2 = new QLabel("检测行人报警", this);
-        QLabel *label3 = new QLabel("检测障碍物报警", this);
+        QLabel *label2 = new QLabel("疲劳报警", this);
+        QLabel *label3 = new QLabel("夜间行人报警", this);
 
         label1->setAlignment(Qt::AlignCenter);
         label2->setAlignment(Qt::AlignCenter);

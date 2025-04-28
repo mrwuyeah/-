@@ -87,17 +87,17 @@ CAlarmSummary::CAlarmSummary(QWidget *parent) : CAbstractCard(parent)
 
     // 其他传感器数据显示
     {
-        QLabel *label1 = new QLabel("0 mg/L", this);
+        fatigueCountLabel = new QLabel("0 mg/L", this);
         QLabel *label2 = new QLabel("1h30min", this);
         QLabel *label3 = new QLabel("正常", this);
-        label1->setAlignment(Qt::AlignCenter);
+        fatigueCountLabel->setAlignment(Qt::AlignCenter);
         label2->setAlignment(Qt::AlignCenter);
         label3->setAlignment(Qt::AlignCenter);
-        label1->setStyleSheet("QLabel{color:#c5ccff; font-size:24px; font-weight: bold;}");
+        fatigueCountLabel->setStyleSheet("QLabel{color:#c5ccff; font-size:24px; font-weight: bold;}");
         label2->setStyleSheet("QLabel{color:#c5ccff; font-size:24px; font-weight: bold;}");
         label3->setStyleSheet("QLabel{color:#c5ccff; font-size:24px; font-weight: bold;}");
         QHBoxLayout *layoutRow = new QHBoxLayout();
-        layoutRow->addWidget(label1);
+        layoutRow->addWidget(fatigueCountLabel);
         layoutRow->addWidget(CreateSeparator(true, this));
         layoutRow->addWidget(label2);
         layoutRow->addWidget(CreateSeparator(true, this));
@@ -406,6 +406,29 @@ void CAlarmSummary::updateFrame(const QJsonObject &data)
             videoLabel->setPixmap(pixmap.scaled(videoLabel->size(),
                                                 Qt::KeepAspectRatio, Qt::SmoothTransformation));
         }
+
+
+    }
+
+    if (data["type"].toString() == "fatigue_summary") {
+        // 获取疲劳帧数和比例
+        int fatigueFrames = data["fatigue_frames"].toInt();
+        double fatigueRatio = data["fatigue_ratio"].toDouble();
+
+        qDebug() << "收到疲劳统计 - 帧数:" << fatigueFrames
+                 << "比例:" << fatigueRatio;
+
+        // 只有当疲劳比例>0.5时才累加
+        if (fatigueRatio > 0.5) {
+            fatigueCount += fatigueFrames;
+            qDebug() << "有效疲劳事件，累计计数:" << fatigueCount;
+        } else {
+            qDebug() << "疲劳比例不足，不累加计数";
+
+        }
+
+        // 显示平均疲劳比例（总累计/总帧数）
+        fatigueCountLabel->setText(QString::number(fatigueRatio, 'f', 2));
     }
 }
 
