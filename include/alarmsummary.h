@@ -34,6 +34,7 @@ public:
     explicit CAlarmSummary(QWidget *parent = nullptr);
     ~CAlarmSummary();
     QWidget *getVideoContainer1() const;
+    bool isFatigue() const { return m_fatigue; };
 
 private slots:
     void onNewConnection();
@@ -46,6 +47,7 @@ private slots:
     void updateFrame(const QJsonObject &data);
 
 private:
+    bool m_fatigue = false;
     // 视频相关成员
     QLabel *videoLabel;
     QProcess *process;
@@ -69,6 +71,12 @@ private:
     void drawDetections(QPixmap &pixmap, const QJsonArray &detections);
 
     QPushButton *playButton;
+
+    QLabel* m_fatigueCountLabel;
+    int m_fatigueAlarmCount = 0;  //
+
+signals:
+    void fatigueStatusChanged(bool isFatigue);  // 新增信号
 };
 
 DataTable generateRandomData(int listCount, int valueMax, int valueCount);

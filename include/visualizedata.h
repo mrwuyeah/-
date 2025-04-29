@@ -2,6 +2,17 @@
 #define VISUALIZEDATA_H
 
 #include <QWidget>
+#include "dynamicsearth.h"
+#include "title.h"
+#include <QDebug>
+#include <QGridLayout>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QKeyEvent>
+#include <QPainter>
+#include <QPixmap>
+
+
 
 class CDynamicsEarth;
 class CTitle;

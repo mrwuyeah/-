@@ -1,22 +1,13 @@
 ﻿#include "visualizedata.h"
-#include "dynamicsearth.h"
-#include "title.h"
-#include <QDebug>
-#include <QGridLayout>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QKeyEvent>
-#include <QPainter>
-#include <QPixmap>
 
-#include "alarmsummary.h"
 #include "histroychart.h"
 #include "piechart.h"
-#include "datasummary.h"
+
 #include "dynamicalarm.h"
 #include "rollalarm.h"
 #include "circulardialsummary.h"
-
+#include "alarmsummary.h"
+#include "datasummary.h"
 CVisualizeData::CVisualizeData(QWidget *parent)
     : QWidget(parent)
 {
@@ -60,6 +51,17 @@ CVisualizeData::~CVisualizeData()
 
 void CVisualizeData::Layout()
 {
+
+    // // 创建报警汇总模块
+    // CAlarmSummary *alarmSummary = new CAlarmSummary(this);
+
+    // // 创建数据显示模块并关联
+    // CDataSummary *dataSummary = new CDataSummary(this);
+    // dataSummary->setAlarmSummary(alarmSummary);  // 关键关联
+
+    // 创建报警汇总模块
+
+
     QVBoxLayout *layoutMain = new QVBoxLayout(this);
     layoutMain->setMargin(0);
     layoutMain->setSpacing(0);

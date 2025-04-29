@@ -11,6 +11,8 @@
         <file>2.mp4</file>
         <file>3.mp4</file>
         <file>4.mp4</file>
+        <file>111.mp4</file>
+        <file>222.mp4</file>
     </qresource>
     <qresource prefix="/new">
         <file>1.mp4</file>

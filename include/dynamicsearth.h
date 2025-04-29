@@ -14,6 +14,7 @@ public:
     explicit CDynamicsEarth(QWidget *parent = nullptr);
     void mousePressEvent(QMouseEvent *event) override;
 
+
 protected:
     void paintEvent(QPaintEvent *) override;
     void timerEvent(QTimerEvent *event) override;

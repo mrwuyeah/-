@@ -87,7 +87,7 @@ CDynamicAlarm::CDynamicAlarm(QWidget *parent) : CAbstractCard(parent)
 
     player3->setVideoOutput(videoWidget3); // 设置视频输出
     QString videoPath;
-    videoPath = "C:\\Users\\18163\\Desktop\\QT\\qt_test_1\\test_1\\3.mp4";
+    videoPath = "C:\\Users\\18163\\Desktop\\QT\\qt_test_1\\test_1\\222.mp4";
     playlist3->addMedia(QUrl::fromLocalFile(videoPath));
     // playlist1->addMedia(QUrl("qrc:/image/res/1.mp4")); // 添加第一个视频
     player3->setPlaylist(playlist3); // 设置播放列表

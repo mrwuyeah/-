@@ -89,19 +89,23 @@ CAlarmSummary::CAlarmSummary(QWidget *parent) : CAbstractCard(parent)
     {
         QLabel *label1 = new QLabel("0 mg/L", this);
         QLabel *label2 = new QLabel("1h30min", this);
-        QLabel *label3 = new QLabel("正常", this);
+        // QLabel *label3 = new QLabel("正常", this);
+        m_fatigueCountLabel = new QLabel("正常", this);
         label1->setAlignment(Qt::AlignCenter);
         label2->setAlignment(Qt::AlignCenter);
-        label3->setAlignment(Qt::AlignCenter);
+        // label3->setAlignment(Qt::AlignCenter);
+        m_fatigueCountLabel->setAlignment(Qt::AlignCenter);
         label1->setStyleSheet("QLabel{color:#c5ccff; font-size:24px; font-weight: bold;}");
         label2->setStyleSheet("QLabel{color:#c5ccff; font-size:24px; font-weight: bold;}");
-        label3->setStyleSheet("QLabel{color:#c5ccff; font-size:24px; font-weight: bold;}");
+        // label3->setStyleSheet("QLabel{color:#c5ccff; font-size:24px; font-weight: bold;}");
+        m_fatigueCountLabel->setStyleSheet("QLabel{color:#c5ccff; font-size:24px; font-weight: bold;}");
         QHBoxLayout *layoutRow = new QHBoxLayout();
         layoutRow->addWidget(label1);
         layoutRow->addWidget(CreateSeparator(true, this));
         layoutRow->addWidget(label2);
         layoutRow->addWidget(CreateSeparator(true, this));
-        layoutRow->addWidget(label3);
+        // layoutRow->addWidget(label3);
+        layoutRow->addWidget(m_fatigueCountLabel);
         layoutRow->setContentsMargins(0, 10, 0, 0);
         layoutMain->addLayout(layoutRow);
     }
@@ -110,7 +114,7 @@ CAlarmSummary::CAlarmSummary(QWidget *parent) : CAbstractCard(parent)
     {
         QLabel *label1 = new QLabel("空气酒精含量", this);
         QLabel *label2 = new QLabel("持续驾驶时长", this);
-        QLabel *label3 = new QLabel("驾驶者驾驶状态", this);
+        QLabel *label3 = new QLabel("五分钟疲劳检测次数", this);
         label1->setAlignment(Qt::AlignCenter);
         label2->setAlignment(Qt::AlignCenter);
         label3->setAlignment(Qt::AlignCenter);
@@ -220,7 +224,7 @@ CAlarmSummary::CAlarmSummary(QWidget *parent) : CAbstractCard(parent)
 
     // 视频播放器2 (保持不变)
     QMediaPlaylist *playlist2 = new QMediaPlaylist(this);
-    QString videoPath2 = "C:/Users/18163/Desktop/QT/qt_test_1/test_1/4.mp4";
+    QString videoPath2 = "C:/Users/18163/Desktop/QT/qt_test_1/test_1/111.mp4";
     playlist2->addMedia(QUrl::fromLocalFile(videoPath2));
     // QString videoPath2 = ":/image/res/3.mp4";  // 使用资源文件中的视频
     // playlist2->addMedia(QUrl(videoPath2));  // 使用QUrl加载资源路径
@@ -395,6 +399,17 @@ void CAlarmSummary::updateFrame(const QJsonObject &data)
     if (data["type"].toString() == "frame") {
         QByteArray imgData = QByteArray::fromBase64(data["image"].toString().toUtf8());
         QPixmap pixmap;
+
+        int alarmCount = data["total_fatigue_count"].toInt();
+        m_fatigueAlarmCount = alarmCount;
+        m_fatigueCountLabel->setText(QString::number(m_fatigueAlarmCount));
+        bool newFatigueState = data["fatigue"].toBool();
+        if (m_fatigue != newFatigueState) {  // 只有状态变化时才发射信号
+            m_fatigue = newFatigueState;
+            emit fatigueStatusChanged(m_fatigue);  // 发射信号
+            qDebug() << "1";
+        }
+
 
         if (pixmap.loadFromData(imgData, "JPG")) {
             // 如果有检测框数据，绘制检测框
